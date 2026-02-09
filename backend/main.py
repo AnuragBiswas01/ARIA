@@ -185,4 +185,5 @@ if __name__ == "__main__":
         host=settings.api_host,
         port=settings.api_port,
         reload=True,
+        reload_excludes=["./data/logs"],
     )
