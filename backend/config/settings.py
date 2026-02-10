@@ -16,30 +16,33 @@ class Settings(BaseSettings):
     api_port: int = Field(default=8000, alias="API_PORT")
     debug: bool = Field(default=False, alias="DEBUG")
 
-    # --- Ollama ---
-    ollama_base_url: str = Field(default="http://localhost:11434", alias="OLLAMA_BASE_URL")
-    ollama_model: str = Field(default="llama3.2:3b-instruct-q4_K_M", alias="OLLAMA_MODEL")
-
-    # --- Database ---
+    # --- Database (PostgreSQL) ---
     database_url: str = Field(
-        default="sqlite+aiosqlite:///./data/memory/aria_memory.db",
+        default="postgresql+asyncpg://postgres:password@localhost/aria",
         alias="DATABASE_URL"
     )
-    chroma_persist_dir: str = Field(
-        default="./data/memory/chroma",
-        alias="CHROMA_PERSIST_DIR"
+
+    # --- Redis ---
+    redis_url: str = Field(default="redis://localhost:6379/0", alias="REDIS_URL")
+
+    # --- Vector DB (Chroma) ---
+    chroma_path: str = Field(default="./data/chroma_db", alias="CHROMA_PATH")
+
+    # --- AI (Ollama) ---
+    ollama_host: str = Field(default="http://localhost:11434", alias="OLLAMA_HOST")
+    ollama_model: str = Field(default="llama3.2", alias="OLLAMA_MODEL")
+
+    # --- OCR (Tesseract) ---
+    tesseract_path: str = Field(
+        default=r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+        alias="TESSERACT_PATH"
     )
 
-    # --- Memory Settings ---
-    working_memory_size: int = Field(default=10, alias="WORKING_MEMORY_SIZE")
-    short_term_memory_ttl_hours: int = Field(default=6, alias="SHORT_TERM_MEMORY_TTL_HOURS")
-
-    # --- Home Assistant (Optional) ---
-    hass_url: str | None = Field(default=None, alias="HASS_URL")
-    hass_token: str | None = Field(default=None, alias="HASS_TOKEN")
-
-    # --- Piper TTS (Optional) ---
-    piper_voice_model: str = Field(default="en_US-lessac-medium", alias="PIPER_VOICE_MODEL")
+    # --- Storage (MinIO) ---
+    minio_endpoint: str = Field(default="localhost:9000", alias="MINIO_ENDPOINT")
+    minio_access_key: str = Field(default="minioadmin", alias="MINIO_ACCESS_KEY")
+    minio_secret_key: str = Field(default="minioadmin", alias="MINIO_SECRET_KEY")
+    minio_secure: bool = Field(default=False, alias="MINIO_SECURE")
 
     class Config:
         env_file = ".env"

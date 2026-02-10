@@ -5,14 +5,29 @@ pydantic==2.10.6
 pydantic-settings==2.7.1
 python-multipart==0.0.20
 
-# AI & Vector DB
-httpx==0.28.1
-chromadb==0.6.3
-sentence-transformers==3.4.1
-
 # Database
-sqlalchemy==2.0.37
-aiosqlite==0.21.0
+sqlalchemy[asyncio]==2.0.37
+asyncpg==0.30.0
+alembic==1.14.0
+psycopg2-binary==2.9.10
+
+# Vector DB
+chromadb==0.6.3
+
+# Task Queue
+celery==5.4.0
+redis==5.2.1
+eventlet==0.39.0
+
+# AI
+ollama==0.4.7
+
+# OCR
+pytesseract==0.3.13
+Pillow==11.1.0
+
+# Storage
+minio==7.2.12
 
 # Utilities
 python-dotenv==1.0.1
