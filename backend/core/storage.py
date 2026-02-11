@@ -19,12 +19,17 @@ def get_minio_client() -> Minio:
 
 def check_minio_connection() -> bool:
     """
-    Verifies connection to MinIO and ensures bucket exists.
+    Verifies connection to MinIO and ensures the configured bucket exists.
     """
     try:
         client = get_minio_client()
-        # Just listing buckets to test auth and connection
-        client.list_buckets()
+        bucket_name = settings.minio_bucket_name
+        
+        if not client.bucket_exists(bucket_name):
+            client.make_bucket(bucket_name)
+            print(f"Created MinIO bucket: {bucket_name}")
+            
         return True
-    except Exception:
+    except Exception as e:
+        print(f"MinIO connection failed: {e}")
         return False

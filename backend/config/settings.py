@@ -28,9 +28,16 @@ class Settings(BaseSettings):
     # --- Vector DB (Chroma) ---
     chroma_path: str = Field(default="./data/chroma_db", alias="CHROMA_PATH")
 
+    # --- AI (General) ---
+    ai_provider: str = Field(default="ollama", alias="AI_PROVIDER")
+
     # --- AI (Ollama) ---
     ollama_host: str = Field(default="http://localhost:11434", alias="OLLAMA_HOST")
     ollama_model: str = Field(default="llama3.2", alias="OLLAMA_MODEL")
+
+    # --- AI (Gemini) ---
+    gemini_api_key: str = Field(default="", alias="GEMINI_API_KEY")
+    gemini_model: str = Field(default="gemini-2.0-flash", alias="GEMINI_MODEL")
 
     # --- OCR (Tesseract) ---
     tesseract_path: str = Field(
@@ -43,6 +50,7 @@ class Settings(BaseSettings):
     minio_access_key: str = Field(default="minioadmin", alias="MINIO_ACCESS_KEY")
     minio_secret_key: str = Field(default="minioadmin", alias="MINIO_SECRET_KEY")
     minio_secure: bool = Field(default=False, alias="MINIO_SECURE")
+    minio_bucket_name: str = Field(default="aria-storage", alias="MINIO_BUCKET_NAME")
 
     class Config:
         env_file = ".env"
